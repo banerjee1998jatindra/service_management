@@ -2,8 +2,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from '../src/route/route'
 import PrimeVue from 'primevue/config';
+import '../public/assets/tailwind.css';
 
-import '/src/assets/styles.scss';
+import '../public/assets/styles.scss';
+
 import Ripple from 'primevue/ripple';
 
 // Define the app before using it
