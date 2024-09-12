@@ -23,8 +23,7 @@ const props = defineProps({
     parentItemKey: {
         type: String,
         default: null
-    },
-    
+    }
 });
 
 const isActiveMenu = ref(false);

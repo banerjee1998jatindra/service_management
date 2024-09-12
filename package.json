@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@primevue/themes": "^4.0.6",
+    "chart.js": "^3.3.2",
     "core-js": "^3.8.3",
     "primeicons": "^6.0.1",
     "primevue": "^4.0.0",
@@ -19,12 +20,12 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@rushstack/eslint-patch": "^1.10.4",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "autoprefixer": "^10.4.20",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.7.1",
+    "eslint-plugin-vue": "^9.28.0",
     "postcss": "^8.4.45",
     "sass": "^1.78.0",
     "sass-loader": "^16.0.1",
