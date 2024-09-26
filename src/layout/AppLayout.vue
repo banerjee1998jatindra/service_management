@@ -1,11 +1,10 @@
 <script setup>
 import { useLayout } from '@/layout/composables/layout';
-import { computed, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import AppFooter from './AppFooter.vue';
-import AppSidebar from './AppSidebar.vue';
 import AppTopbar from './AppTopbar.vue';
 
-const { layoutConfig, layoutState, isSidebarActive, resetMenu } = useLayout();
+const { isSidebarActive, resetMenu } = useLayout();
 
 const outsideClickListener = ref(null);
 
@@ -17,15 +16,6 @@ watch(isSidebarActive, (newVal) => {
     }
 });
 
-const containerClass = computed(() => {
-    return {
-        'layout-overlay': layoutConfig.menuMode === 'overlay',
-        'layout-static': layoutConfig.menuMode === 'static',
-        'layout-static-inactive': layoutState.staticMenuDesktopInactive && layoutConfig.menuMode === 'static',
-        'layout-overlay-active': layoutState.overlayMenuActive,
-        'layout-mobile-active': layoutState.staticMenuMobileActive
-    };
-});
 
 function bindOutsideClickListener() {
     if (!outsideClickListener.value) {
@@ -54,9 +44,8 @@ function isOutsideClicked(event) {
 </script>
 
 <template>
-    <div class="layout-wrapper" :class="containerClass">
+    <div class="layout-wrapper layout-overlay">
         <app-topbar></app-topbar>
-        <app-sidebar></app-sidebar>
         <div class="layout-main-container">
             <div class="layout-main">
                 <router-view></router-view>
@@ -65,5 +54,5 @@ function isOutsideClicked(event) {
         </div>
         <div class="layout-mask animate-fadein"></div>
     </div>
-    <Toast />
+    <!-- <Toast /> -->
 </template>

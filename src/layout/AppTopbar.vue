@@ -1,16 +1,40 @@
 <script setup>
 import { useLayout } from '@/layout/composables/layout';
-import AppConfigurator from './AppConfigurator.vue';
+import { ref } from 'vue';
+const menu = ref(null);
 
-const { onMenuToggle, toggleDarkMode, isDarkTheme } = useLayout();
+
+
+const { toggleDarkMode, isDarkTheme } = useLayout();
+const overlayMenuItems = ref([
+    {
+        label: 'Save',
+        icon: 'pi pi-save'
+    },
+    {
+        label: 'Update',
+        icon: 'pi pi-refresh'
+    },
+    {
+        label: 'Delete',
+        icon: 'pi pi-trash'
+    },
+    {
+        separator: true
+    },
+    {
+        label: 'Home',
+        icon: 'pi pi-home'
+    }
+]);
+function toggleMenu(event) {
+    menu.value.toggle(event);
+}
 </script>
 
 <template>
     <div class="layout-topbar">
         <div class="layout-topbar-logo-container">
-            <button class="layout-menu-button layout-topbar-action" @click="onMenuToggle">
-                <i class="pi pi-bars"></i>
-            </button>
             <router-link to="/" class="layout-topbar-logo">
                 <svg viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -35,21 +59,16 @@ const { onMenuToggle, toggleDarkMode, isDarkTheme } = useLayout();
         </div>
 
         <div class="layout-topbar-actions">
-            <div class="layout-config-menu">
+            <IconField iconPosition="left">
+                    <InputText type="text" placeholder="Search" />
+                    <InputIcon class="pi pi-search" />
+                </IconField>
+            <!-- <div class="layout-config-menu">
                 <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
                     <i :class="['pi', { 'pi-moon': isDarkTheme, 'pi-sun': !isDarkTheme }]"></i>
                 </button>
-                <div class="relative">
-                    <button
-                        v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }"
-                        type="button"
-                        class="layout-topbar-action layout-topbar-action-highlight"
-                    >
-                        <i class="pi pi-palette"></i>
-                    </button>
-                    <AppConfigurator />
-                </div>
-            </div>
+                
+            </div> -->
 
             <button
                 class="layout-topbar-menu-button layout-topbar-action"
@@ -60,15 +79,20 @@ const { onMenuToggle, toggleDarkMode, isDarkTheme } = useLayout();
 
             <div class="layout-topbar-menu hidden lg:block">
                 <div class="layout-topbar-menu-content">
+                    <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
+                    <i :class="['pi', { 'pi-sun': isDarkTheme, 'pi-moon': !isDarkTheme }]"></i>
+                    <span>{{ isDarkTheme ? 'Light Mode' : 'Dark Mode' }}</span>
+                </button>
                     <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-calendar"></i>
-                        <span>Calendar</span>
+                        <i class="pi pi-map-marker"></i>
+                        <span>Location</span>
                     </button>
                     <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-inbox"></i>
-                        <span>Messages</span>
+                        <i class="pi pi-fw pi-shopping-cart"></i>
+                        <span>Orders</span>
                     </button>
-                    <button type="button" class="layout-topbar-action">
+                    <Menu ref="menu" :model="overlayMenuItems" :popup="true" />
+                    <button type="button" class="layout-topbar-action" @click="toggleMenu" label="Options" style="width: auto">
                         <i class="pi pi-user"></i>
                         <span>Profile</span>
                     </button>
